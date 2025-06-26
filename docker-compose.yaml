@@ -1,0 +1,98 @@
+version: '3.9'
+services:
+  aqua-connector:
+    restart: unless-stopped
+    image: docker.io/aquasec/codesec-connector:minified
+    environment:
+      SOURCE: 'azure_server'
+      SCM_URL: ${SCM_URL}
+      USERNAME: ${SCM_USERNAME}
+      PASSWORD: ${SCM_PASSWORD}
+      AQUA_KEY: ${AQUA_KEY}
+      AQUA_SECRET: ${AQUA_SECRET} 
+      BROKER_TOKEN: ${BROKER_TOKEN}
+
+      # Uncomment if you have a proxy
+      # HTTP_PROXY: ${HTTP_PROXY}
+
+      # Uncomment this section if you are using a custom certificate
+      # CA_CERT: ${CA_CERT} # .pem file path
+      # HTTPS_CERT: ${HTTPS_CERT} # certificate file path
+      # HTTPS_KEY: ${HTTPS_KEY} # certificate private key path
+    # volumes:
+    #   - ${LOCAL_CERT_DIR}:/home/private
+
+  aqua-scanner:
+    restart: unless-stopped
+    image: docker.io/aquasec/codesec-scanner:latest
+    environment:
+      SOURCE: 'azure_server'
+      USERNAME: ${SCM_USERNAME}
+      PASSWORD: ${SCM_PASSWORD}
+      AQUA_KEY: ${AQUA_KEY}
+      AQUA_SECRET: ${AQUA_SECRET} 
+      BROKER_TOKEN: ${BROKER_TOKEN}
+
+      # Uncomment if you have a proxy
+      # HTTP_PROXY: ${HTTP_PROXY}
+
+      # Uncomment this section if you are using a custom certificate
+      # CA_CERT: ${CA_CERT} # .pem file path
+      # HTTPS_CERT: ${HTTPS_CERT} # certificate file path
+      # HTTPS_KEY: ${HTTPS_KEY} # certificate private key path
+    # volumes:
+    #   - ${LOCAL_CERT_DIR}:/home/private
+
+    # Uncomment if you want more than one scanner running
+    # deploy:
+    #   replicas: 3
+
+  aqua-remediation:
+    restart: unless-stopped
+    image: docker.io/aquasec/codesec-remediation:latest
+    environment:
+      SOURCE: 'azure_server'
+      USERNAME: ${SCM_USERNAME}
+      PASSWORD: ${SCM_PASSWORD}
+      AQUA_KEY: ${AQUA_KEY}
+      AQUA_SECRET: ${AQUA_SECRET} 
+      BROKER_TOKEN: ${BROKER_TOKEN}
+
+      # Uncomment if you have a proxy
+      # HTTP_PROXY: ${HTTP_PROXY}
+
+      # Uncomment this section if you are using a custom certificate
+      # CA_CERT: ${CA_CERT} # .pem file path
+      # HTTPS_CERT: ${HTTPS_CERT} # certificate file path
+      # HTTPS_KEY: ${HTTPS_KEY} # certificate private key path
+    # volumes:
+    #   - ${LOCAL_CERT_DIR}:/home/private
+
+    # Uncomment if you want more than one scanner running
+    # deploy:
+    #   replicas: 3
+
+  aqua-bleed-secrets:
+    restart: unless-stopped
+    image: docker.io/aquasec/codesec-bleed-secrets:latest
+    environment:
+      SOURCE: 'azure_server'
+      USERNAME: ${SCM_USERNAME}
+      PASSWORD: ${SCM_PASSWORD}
+      AQUA_KEY: ${AQUA_KEY}
+      AQUA_SECRET: ${AQUA_SECRET} 
+      BROKER_TOKEN: ${BROKER_TOKEN}
+
+      # Uncomment if you have a proxy
+      # HTTP_PROXY: ${HTTP_PROXY}
+
+      # Uncomment this section if you are using a custom certificate
+      # CA_CERT: ${CA_CERT} # .pem file path
+      # HTTPS_CERT: ${HTTPS_CERT} # certificate file path
+      # HTTPS_KEY: ${HTTPS_KEY} # certificate private key path
+    # volumes:
+    #   - ${LOCAL_CERT_DIR}:/home/private
+
+    # Uncomment if you want more than one scanner running
+    # deploy:
+    #   replicas: 3
