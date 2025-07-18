@@ -1,6 +1,1 @@
-#proxy_user: username
-#proxy_password: password
-RunAsUser: 1001
-RunAsGroup: 1001
-Aqua_key: "AQUA_KEY"
-password: "AQUASEC_TOKEN_GITLAB"
+
